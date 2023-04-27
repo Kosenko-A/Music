@@ -1,0 +1,77 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="create_t1" author="kosenko" context="schema">
+    <createTable tableName="music_group">
+        <column name="id" type="BIGINT" autoIncrement="true">
+            <constraints primaryKeyName="pk_id"
+                         primaryKey="true"
+                         nullable="false"/>
+        </column>
+        <column name="name" type="text">
+            <constraints nullable="false"/>
+        </column>
+        <column name="genre" type="text">
+            constraints nullable="false"/>
+        </column>
+        <column name="soloist_sur" type="text">
+            constraints nullable="false"/>
+        </column>
+        <column name="year" type="INT">
+            constraints nullable="false"/>
+        </column>
+        <column name="place" type="text">
+            constraints nullable="false"/>
+        </column>
+    </createTable>
+    </changeSet>
+
+    <changeSet id="create_tab2" author="kosenko">
+        <createTable tableName="song">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKeyName="pk_song_id"
+                             primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mus_gr_id" type="BIGINT">
+                <constraints nullable="false"
+                references="music_group(id)"
+                foreignKeyName = "fk_id_m"/>
+            </column>
+            <column name="album" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="insert_101" author="kosenko">
+                <sql>
+                    INSERT INTO music_group (name, genre, soloist_sur, year, place) VALUES
+                    ('Король и Шут', 'Панк-рок', 'Горшенёв', 1988, 'Санкт-Петербург'),
+                    ('Сплин', 'Альт-рок', 'Васильев', 1994, 'Санкт-Петербург');
+                </sql>
+    </changeSet>
+    <changeSet id="insert_102" author="kosenko">
+                <sql>
+                    INSERT INTO song (name, mus_gr_id, album, genre, year) VALUES
+                    ('Дурак и молния', 1, 'Камнем по голове', 'Хоррор-панк', 1996),
+                    ('Кукла колдуна', 1, 'Акустический альбом', 'Панк-рок', 1999),
+                    ('Выхода нет', 2, 'Гранатовый альбом', 'Рок', 1998),
+                    ('Танцуй!', 2, 'Резонанс', 'Рок', 2014),
+                    ('Орбит без сахара', 2, 'Гранатовый альбом', 'Рок', 1998);
+                </sql>
+    </changeSet>
+</databaseChangeLog>
